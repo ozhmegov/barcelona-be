@@ -1,4 +1,14 @@
-<html lang="en">
+<html lang="en" ng-app="myApp">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('myCtrl', function($scope, $http) {
+        $http.get("http://localhost:8080/books").then(function (response) {
+            $scope.books = response.data;
+        });
+    });
+</script>
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -6,16 +16,19 @@
 <body>
     <a href="../index.html">Back to main menu</a><br/><br/>
     <h1>Book list</h1>
-    <table class="tg">
+    <table class="tg" ng-controller="myCtrl">
         <tr>
             <th>ID</th>
             <th>TITLE</th>
             <th>AUTHOR</th>
             <th>PRICE</th>
-            <th>EDIT</th>
-            <th>REMOVE</th>
         </tr>
-
+        <tr ng-repeat="book in books">
+            <td>book.id</td>
+            <td>book.bookTitle</td>
+            <td>book.bookAuthor</td>
+            <td>book.price</td>
+        </tr>
 
     </table>
 </body>

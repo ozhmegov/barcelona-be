@@ -2,9 +2,11 @@ package service;
 
 import dao.BookDaoImpl;
 import model.Book;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.enterprise.inject.Produces;
 import java.util.List;
 
 @Service
