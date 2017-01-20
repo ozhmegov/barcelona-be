@@ -1,67 +1,12 @@
 package controller;
 
-import model.Book;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import service.BookService;
 
-@RestController
+@Controller
 public class BookController {
-    private BookService bookService;
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        return "redirect:/view/index.html";
-    }
-
-    @RequestMapping(value = "/books", method = RequestMethod.GET, headers = "Accept=application/json")
-    public String listBooks(Model model){
-        model.addAttribute("book", new Book());
-        model.addAttribute("listBooks", this.bookService.listBooks());
         return "redirect:/view/books.html";
-    }
-
-    @RequestMapping(value = "/books/add", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("book") Book book){
-        if(book.getId() == 0){
-            this.bookService.addBook(book);
-        } else {
-            this.bookService.updateBook(book);
-        }
-        return "redirect:/view/books.html";
-    }
-
-    @RequestMapping(value = "/remove/{id}")
-    public String removeBook(@PathVariable("id") int id){
-        this.bookService.removeBook(id);
-        return "redirect:/view/books.html";
-    }
-
-    @RequestMapping(value = "/edit/{id}")
-    public String editBook(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", this.bookService.getBookById(id));
-        model.addAttribute("blistBooks", this.bookService.listBooks());
-        return "redirect:/view/books.html";
-    }
-
-    @RequestMapping(value = "/bookdata/{id}")
-    public String bookData(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", this.bookService.getBookById(id));
-        return "redirect:/view/bookdata.html";
-    }
-
-
-    /**
-     * Sets bookService.
-     *
-     * @param bookService the new value.
-     */
-    @Autowired(required = true)
-    @Qualifier(value = "bookService")
-    public void setBookService(BookService bookService) {
-        this.bookService = bookService;
     }
 }

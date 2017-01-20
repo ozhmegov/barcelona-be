@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private BookDaoImpl bookDao;
+    private BookDaoImpl bookDao = new BookDaoImpl();
 
     @Override
     @Transactional

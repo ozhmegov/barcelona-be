@@ -1,17 +1,19 @@
 <html lang="en" ng-app="myApp">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
 <script>
     var myApp = angular.module('myApp', []);
     myApp.controller('myCtrl', function($scope, $http) {
-        $http.get("http://localhost:8080/books").then(function (response) {
-            $scope.books = response.data;
-        });
+        var urlBase="http://localhost:8080/view";
+        $http.get(urlBase+'/books').
+        success(function(data) {
+            $scope.books = data;
+        })
     });
 </script>
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Books</title>
 </head>
 <body>
     <a href="index.html">Back to main menu</a><br/><br/>
