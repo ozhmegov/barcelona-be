@@ -1,37 +1,39 @@
-<html lang="en" ng-app="myApp">
+<html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-<script>
-    var myApp = angular.module('myApp', []);
-    myApp.controller('myCtrl', function($scope, $http) {
-        var urlBase="http://localhost:8080/view";
-        $http.get(urlBase+'/books').
-        success(function(data) {
-            $scope.books = data;
-        })
-    });
-</script>
 
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
 </head>
 <body>
-    <a href="index.html">Back to main menu</a><br/><br/>
-    <h1>Book list</h1>
-    <table class="tg" ng-controller="myCtrl">
-        <tr>
-            <th>ID</th>
-            <th>TITLE</th>
-            <th>AUTHOR</th>
-            <th>PRICE</th>
-        </tr>
-        <tr ng-repeat="book in books">
-            <td>book.id</td>
-            <td>book.bookTitle</td>
-            <td>book.bookAuthor</td>
-            <td>book.price</td>
-        </tr>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>TITLE</th>
+                <th>AUTHOR</th>
+                <th>PRICE</th>
+            </tr>
+            <tr ng-repeat="book in books">
+                <td>book.id</td>
+                <td>book.bookTitle</td>
+                <td>book.bookAuthor</td>
+                <td>book.price</td>
+            </tr>
+        </table>
+    </div>
 
-    </table>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get("http://localhost:8080/view/books.html").
+            success(function(data, status, headers, config) {
+                $scope.books = data;
+            }).
+            error(function($data, status, $headers, config) {
+                alert("error getting data");
+            })
+        });
+    </script>
 </body>
 </html>

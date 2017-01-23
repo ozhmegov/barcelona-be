@@ -4,7 +4,7 @@ import model.Book;
 
 import java.util.List;
 
-interface BookDao {
+public interface BookDao {
     void addBook(Book book);
     Book getBookById(int id);
     void removeBook(int id);

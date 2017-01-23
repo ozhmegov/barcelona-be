@@ -8,6 +8,7 @@
     <context:component-scan base-package="controller" />
 
     <mvc:resources mapping="/view/**" location="/WEB-INF/view/" />
+    <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 
     <!--DataBase-->
@@ -48,4 +49,6 @@
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
+
+
 </beans>
