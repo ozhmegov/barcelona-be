@@ -1,4 +1,4 @@
-package model;
+package bookmanager.model;
 
 import javax.persistence.*;
 
@@ -99,5 +99,15 @@ public class Book {
      */
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

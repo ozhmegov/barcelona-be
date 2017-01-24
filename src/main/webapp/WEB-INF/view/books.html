@@ -26,12 +26,9 @@
     <script>
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function($scope, $http) {
-            $http.get("http://localhost:8080/view/books.html").
-            success(function(data, status, headers, config) {
+            $http.get("http://localhost:8080/view/books", data).
+            success(function(data) {
                 $scope.books = data;
-            }).
-            error(function($data, status, $headers, config) {
-                alert("error getting data");
             })
         });
     </script>

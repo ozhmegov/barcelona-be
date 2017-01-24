@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="controller" />
+    <context:component-scan base-package="bookmanager" />
 
     <mvc:resources mapping="/view/**" location="/WEB-INF/view/" />
     <mvc:default-servlet-handler/>
@@ -25,7 +25,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>model.Book</value>
+                <value>bookmanager.model.Book</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -38,17 +38,19 @@
     </bean>
 
     <!--bookDao and bookService baens-->
-    <bean id="bookDao" class="dao.BookDaoImpl">
+    <bean id="bookDao" class="bookmanager.dao.BookDaoImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
 
-    <bean id="bookService" class="service.BookServiceImpl">
+    <bean id="bookService" class="bookmanager.service.BookServiceImpl">
         <property name="bookDao" ref="bookDao"/>
     </bean>
+
 
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
 
+    <tx:annotation-driven transaction-manager="txManager"/>
 
 </beans>
