@@ -4,18 +4,18 @@
     <title>Books</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script>
-        var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function($scope, $http) {
-            $http.get("http://localhost:8080/view/books.html").then(function(response) {
+        var bookApp = angular.module('bookApp', []);
+        bookApp.controller('bookCtrl', function($scope, $http) {
+            $http.get("http://localhost:8080/view/listBooks").then(function(response) {
                 $scope.myData = response.data;
             });
         });
     </script>
 </head>
 <body>
-<a href="/view/books/list">List books</a>
+<h1>Books list</h1>
 
-<div ng-app="myApp" ng-controller="customersCtrl">
+<div ng-app="bookApp" ng-controller="bookCtrl">
     <table>
         <tr>
             <th>Id</th>

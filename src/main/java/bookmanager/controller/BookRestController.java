@@ -13,9 +13,8 @@ import java.util.List;
 public class BookRestController {
     private BookService bookService;
 
-    @RequestMapping(value="/view/books.html",method = RequestMethod.GET)
+    @RequestMapping(value="/view/listBooks",method = RequestMethod.GET)
     public List<Book> getAllBooks() {
-        for(Book book : bookService.listBooks()) System.out.println(book);
         return bookService.listBooks();
     }
 
