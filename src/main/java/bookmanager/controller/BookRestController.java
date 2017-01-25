@@ -13,9 +13,8 @@ import java.util.List;
 public class BookRestController {
     private BookService bookService;
 
-    @RequestMapping(value="/view/books.html",method = RequestMethod.GET, headers = "application/json")
+    @RequestMapping(value="/view/books.html",method = RequestMethod.GET)
     public List<Book> getAllBooks() {
-        System.out.println("LLLL");
         for(Book book : bookService.listBooks()) System.out.println(book);
         return bookService.listBooks();
     }
