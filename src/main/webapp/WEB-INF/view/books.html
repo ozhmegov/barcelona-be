@@ -11,6 +11,10 @@
             $http.get("http://localhost:8080/view/listBooks").then(function(response) {
                 $scope.myData = response.data;
             });
+
+            $scope.addBook = function () {
+                alert("called");
+            }
         });
     </script>
 </head>
@@ -20,17 +24,17 @@
         <div class="col-md-4">
             <h3><p class="text-center"><strong>Add book form</strong></p></h3>
 
-            <form role="form">
+            <form role="form" ng-submit="bookCtrl.addBook()">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="bookTitle" placeholder="Book title">
+                    <input type="text" class="form-control" ng-model="bookTitle" placeholder="Book title" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="bookAuthor" placeholder="Book author">
+                    <input type="text" class="form-control" ng-model="bookAuthor" placeholder="Book author" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="bookPrice" placeholder="Book price">
+                    <input type="text" class="form-control" ng-model="bookPrice" placeholder="Book price" required>
                 </div>
-                <button type="submit" class="btn btn-success">Add book</button>
+                <button type="submit" ng-click="addBook()" class="btn btn-success">Add book</button>
             </form>
         </div>
 
