@@ -4,6 +4,7 @@ import bookmanager.model.Book;
 import bookmanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,11 @@ public class BookRestController {
     @RequestMapping(value="/view/listBooks",method = RequestMethod.GET)
     public List<Book> getAllBooks() {
         return bookService.listBooks();
+    }
+
+    @RequestMapping(value="/view/addBook",method = RequestMethod.POST)
+    public void addBook(@RequestBody Book book) {
+        bookService.addBook(book);
     }
 
     /**

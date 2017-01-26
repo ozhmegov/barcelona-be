@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" ng-app="bookApp">
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
@@ -8,31 +8,44 @@
     <script>
         var bookApp = angular.module('bookApp', []);
         bookApp.controller('bookCtrl', function($scope, $http) {
-            $http.get("http://localhost:8080/view/listBooks").then(function(response) {
-                $scope.myData = response.data;
-            });
+            var baseURL = "http://localhost:8080/view";
+
+            $scope.getAllBooks = function () {
+                $http.get(baseURL + "/listBooks").then(function(response) {
+                    $scope.myData = response.data;
+                });
+            };
 
             $scope.addBook = function () {
-                alert("called");
+                $http.post(baseURL + "/addBook", {
+                    "bookTitle":$scope.bookTitle,
+                    "bookAuthor":$scope.bookAuthor,
+                    "price":$scope.bookPrice
+                }).then(function (response) {
+                    $scope.getAllBooks();
+                });
             }
+
+
+
         });
     </script>
 </head>
 
-<body class="container-fluid">
+<body class="container-fluid" ng-controller="bookCtrl">
     <div class="row">
         <div class="col-md-4">
             <h3><p class="text-center"><strong>Add book form</strong></p></h3>
 
-            <form role="form" ng-submit="bookCtrl.addBook()">
+            <form role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="bookTitle" placeholder="Book title" required>
+                    <input type="text" class="form-control" name="bookTitle" ng-model="bookTitle" placeholder="Book title" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="bookAuthor" placeholder="Book author" required>
+                    <input type="text" class="form-control" name="bookAuthor" ng-model="bookAuthor" placeholder="Book author" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="bookPrice" placeholder="Book price" required>
+                    <input type="text" class="form-control" name="bookPrice" ng-model="bookPrice" placeholder="Book price" required>
                 </div>
                 <button type="submit" ng-click="addBook()" class="btn btn-success">Add book</button>
             </form>
@@ -41,14 +54,14 @@
         <div class="col-md-8">
             <h3><p class="text-center"><strong>List of books</strong></p></h3>
 
-            <div ng-app="bookApp" ng-controller="bookCtrl">
-                <table class="table table-striped">
+            <div>
+                <table class="table table-striped" ng-init="getAllBooks()">
                     <tr>
                         <th>Id</th>
                         <th>Title</th>
                         <th>Author</th>
                         <th>Price</th>
-                        <th width="50"></th>
+                        <th width="10"></th>
                     </tr>
                     <tr ng-repeat="x in myData">
                         <td>{{x.id}}</td>
