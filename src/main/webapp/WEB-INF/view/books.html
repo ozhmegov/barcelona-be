@@ -21,12 +21,17 @@
                     "bookTitle":$scope.bookTitle,
                     "bookAuthor":$scope.bookAuthor,
                     "price":$scope.bookPrice
-                }).then(function (response) {
+                }).then(function () {
                     $scope.getAllBooks();
+                    $scope.bookTitle = '';
+                    $scope.bookAuthor = '';
+                    $scope.bookPrice = '';
                 });
+            };
+
+            $scope.removeBook = function(){
+
             }
-
-
 
         });
     </script>
@@ -37,7 +42,7 @@
         <div class="col-md-4">
             <h3><p class="text-center"><strong>Add book form</strong></p></h3>
 
-            <form role="form">
+            <form role="form" name="bookForm" ng-submit="addBook()">
                 <div class="form-group">
                     <input type="text" class="form-control" name="bookTitle" ng-model="bookTitle" placeholder="Book title" required>
                 </div>
@@ -47,7 +52,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" name="bookPrice" ng-model="bookPrice" placeholder="Book price" required>
                 </div>
-                <button type="submit" ng-click="addBook()" class="btn btn-success">Add book</button>
+                <button type="submit" class="btn btn-success">Add book</button>
             </form>
         </div>
 
@@ -70,7 +75,7 @@
                         <td>{{x.price}}</td>
                         <td>
                             <button type="button" ng-click="" class="btn btn-success custom-width">Edit</button>
-                            <button type="button" ng-click="" class="btn btn-danger custom-width">Remove</button>
+                            <button type="button" ng-click="removeBook()" class="btn btn-danger custom-width">Remove</button>
                         </td>
                     </tr>
                 </table>

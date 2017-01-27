@@ -4,10 +4,8 @@ import bookmanager.model.Book;
 import bookmanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -22,6 +20,11 @@ public class BookRestController {
     @RequestMapping(value="/view/addBook",method = RequestMethod.POST)
     public void addBook(@RequestBody Book book) {
         bookService.addBook(book);
+    }
+
+    @RequestMapping(value="/view/removeBook",method=RequestMethod.DELETE)
+    public void removeBook(@RequestBody String id) {
+        bookService.removeBook(Integer.parseInt(id));
     }
 
     /**
