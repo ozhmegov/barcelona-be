@@ -29,8 +29,11 @@
                 });
             };
 
-            $scope.removeBook = function(){
-
+            $scope.removeBook = function(id){
+                $http.delete(baseURL + "/removeBook/" + id)
+                        .then(function () {
+                            $scope.getAllBooks();
+                        })
             }
 
         });
@@ -75,7 +78,7 @@
                         <td>{{x.price}}</td>
                         <td>
                             <button type="button" ng-click="" class="btn btn-success custom-width">Edit</button>
-                            <button type="button" ng-click="removeBook()" class="btn btn-danger custom-width">Remove</button>
+                            <button type="button" ng-click="removeBook(x.id)" class="btn btn-danger custom-width">Remove</button>
                         </td>
                     </tr>
                 </table>

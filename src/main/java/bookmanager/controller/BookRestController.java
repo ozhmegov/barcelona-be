@@ -22,9 +22,9 @@ public class BookRestController {
         bookService.addBook(book);
     }
 
-    @RequestMapping(value="/view/removeBook",method=RequestMethod.DELETE)
-    public void removeBook(@RequestBody String id) {
-        bookService.removeBook(Integer.parseInt(id));
+    @RequestMapping(value="/view/removeBook/{id}",method = RequestMethod.DELETE)
+    public void removeBook(@PathVariable("id") int id) {
+        bookService.removeBook(id);
     }
 
     /**
