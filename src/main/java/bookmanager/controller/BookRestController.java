@@ -27,6 +27,11 @@ public class BookRestController {
         bookService.removeBook(id);
     }
 
+    @RequestMapping(value="/view/updateBook",method = RequestMethod.PUT)
+    public void updateBook(@RequestBody Book book) {
+        bookService.updateBook(book);
+    }
+
     /**
      * Sets bookService.
      *
