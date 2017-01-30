@@ -17,7 +17,7 @@ public class Book {
     private String bookAuthor;
 
     @Column(name = "Book_price")
-    private int price;
+    private int bookPrice;
 
     public Book(){
 
@@ -26,7 +26,7 @@ public class Book {
     public Book(String bookTitle, String bookAuthor, int price) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
-        this.price = price;
+        this.bookPrice = price;
     }
 
     /**
@@ -88,17 +88,17 @@ public class Book {
      *
      * @return price
      */
-    public int getPrice() {
-        return price;
+    public int getBookPrice() {
+        return bookPrice;
     }
 
     /**
      * Sets price.
      *
-     * @param price the new value.
+     * @param bookPrice the new value.
      */
-    public void setPrice(int price) {
-        this.price = price;
+    public void setBookPrice(int bookPrice) {
+        this.bookPrice = bookPrice;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class Book {
                 "id=" + id +
                 ", bookTitle='" + bookTitle + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +
-                ", price=" + price +
+                ", price=" + bookPrice +
                 '}';
     }
 }

@@ -29,7 +29,14 @@ public class BookRestController {
 
     @RequestMapping(value="/view/updateBook",method = RequestMethod.PUT)
     public void updateBook(@RequestBody Book book) {
+        System.out.println(book);
         bookService.updateBook(book);
+    }
+
+    @RequestMapping(value="/view/book/{id}",method = RequestMethod.DELETE)
+    public Book getBook(@PathVariable("id") int id) {
+        System.out.println(id);
+        return bookService.getBookById(id);
     }
 
     /**

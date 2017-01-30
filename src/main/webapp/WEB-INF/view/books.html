@@ -20,7 +20,7 @@
                 $http.post(baseURL + "/addBook", {
                     "bookTitle":$scope.bookTitle,
                     "bookAuthor":$scope.bookAuthor,
-                    "price":$scope.bookPrice
+                    "bookPrice":$scope.bookPrice
                 }).then(function () {
                     $scope.getAllBooks();
                     $scope.bookTitle = '';
@@ -36,16 +36,33 @@
                         })
             };
 
-            $scope.updateBook = function(id) {
-                $http.put(baseURL + "/updateBook/", {
-                    "id": id,
-                    "bookTitle": $scope.bookTitle,
-                    "bookAuthor": $scope.bookAuthor,
-                    "price": $scope.bookPrice
+            $scope.updateBook = function(book) {
+                $http.put(baseURL + "/updateBook", {
+                    "id":book.id,
+                    "bookTitle":book.bookTitle,
+                    "bookAuthor":book.bookAuthor,
+                    "bookPrice":book.bookPrice
                 }).then(function () {
                     $scope.getAllBooks();
                 })
-            }
+            };
+
+            $scope.editItem = function (item) {
+                item.editing = true;
+            };
+
+            $scope.doneEditing = function (item) {
+                item.editing = false;
+                $scope.updateBook(item);
+            };
+
+            $scope.getBook = function (id) {
+                $http.get(baseURL + "/book/" + id).then(function(response) {
+                    $scope.book = response.data;
+                });
+                alert(book.id);
+            };
+
         });
     </script>
 </head>
@@ -73,21 +90,31 @@
             <h3><p class="text-center"><strong>List of books</strong></p></h3>
 
             <div>
-                <table class="table table-striped" ng-init="getAllBooks()">
+                <table class="table table-striped table-hover" ng-init="getAllBooks()">
                     <tr>
                         <th>Id</th>
                         <th>Title</th>
                         <th>Author</th>
                         <th>Price</th>
-                        <th width="10"></th>
+                        <th></th>
                     </tr>
-                    <tr ng-repeat="x in myData">
-                        <td>{{x.id}}</td>
-                        <td>{{x.bookTitle}}</td>
-                        <td>{{x.bookAuthor}}</td>
-                        <td>{{x.price}}</td>
+                    <tr ng-repeat="x in myData" ng-click="getBook(x.id)">
                         <td>
-                            <button type="button" ng-click="updateBook(x.id)" class="btn btn-success custom-width">Edit</button>
+                            {{x.id}}
+                        </td>
+                        <td>
+                            <span ng-hide="x.editing" ng-dblclick="editItem(x)">{{x.bookTitle}}</span>
+                            <input ng-show="x.editing" ng-model="x.bookTitle" ng-blur="doneEditing(x)" autofocus />
+                        </td>
+                        <td>
+                            <span ng-hide="x.editing" ng-dblclick="editItem(x)">{{x.bookAuthor}}</span>
+                            <input ng-show="x.editing" ng-model="x.bookAuthor" ng-blur="doneEditing(x)" autofocus />
+                        </td>
+                        <td>
+                            <span ng-hide="x.editing" ng-dblclick="editItem(x)">{{x.bookPrice}}</span>
+                            <input ng-show="x.editing" ng-model="x.bookPrice" ng-blur="doneEditing(x)" autofocus />
+                        </td>
+                        <td>
                             <button type="button" ng-click="removeBook(x.id)" class="btn btn-danger custom-width">Remove</button>
                         </td>
                     </tr>
