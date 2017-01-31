@@ -33,11 +33,6 @@ public class BookRestController {
         bookService.updateBook(book);
     }
 
-    @RequestMapping(value="/view/book/{id}",method = RequestMethod.DELETE)
-    public Book getBook(@PathVariable("id") int id) {
-        System.out.println(id);
-        return bookService.getBookById(id);
-    }
 
     /**
      * Sets bookService.

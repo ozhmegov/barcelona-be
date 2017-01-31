@@ -56,13 +56,6 @@
                 $scope.updateBook(item);
             };
 
-            $scope.getBook = function (id) {
-                $http.get(baseURL + "/book/" + id).then(function(response) {
-                    $scope.book = response.data;
-                });
-                alert(book.id);
-            };
-
         });
     </script>
 </head>
@@ -98,7 +91,7 @@
                         <th>Price</th>
                         <th></th>
                     </tr>
-                    <tr ng-repeat="x in myData" ng-click="getBook(x.id)">
+                    <tr ng-repeat="x in myData">
                         <td>
                             {{x.id}}
                         </td>
