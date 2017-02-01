@@ -56,6 +56,13 @@
                 $scope.updateBook(item);
             };
 
+            $scope.getBook = function (id) {
+                $http.get(baseURL + "/getBook/" + id)
+                        .then(function (response) {
+
+                        });
+            }
+
         });
     </script>
 </head>
@@ -77,6 +84,8 @@
                 </div>
                 <button type="submit" class="btn btn-success">Add book</button>
             </form>
+
+            <h4>Book: {{bookT}}</h4>
         </div>
 
         <div class="col-md-8">
@@ -109,6 +118,7 @@
                         </td>
                         <td>
                             <button type="button" ng-click="removeBook(x.id)" class="btn btn-danger custom-width">Remove</button>
+                            <button type="button" ng-click="getBook(x.id)" class="btn btn-danger custom-width">Book</button>
                         </td>
                     </tr>
                 </table>

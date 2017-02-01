@@ -29,10 +29,14 @@ public class BookRestController {
 
     @RequestMapping(value="/view/updateBook",method = RequestMethod.PUT)
     public void updateBook(@RequestBody Book book) {
-        System.out.println(book);
         bookService.updateBook(book);
     }
 
+    @RequestMapping(value="/view/getBook/{id}",method = RequestMethod.GET)
+    public Book getBook(@PathVariable("id") int id) {
+        System.out.println(id);
+        return null;
+    }
 
     /**
      * Sets bookService.
