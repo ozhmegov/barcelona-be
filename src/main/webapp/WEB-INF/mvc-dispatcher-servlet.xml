@@ -5,52 +5,46 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="bookmanager" />
+    <context:component-scan base-package="barcelona" />
 
-    <mvc:resources mapping="/view/**" location="/WEB-INF/view/" />
-    <mvc:default-servlet-handler/>
-    <mvc:annotation-driven/>
 
     <!--DataBase-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/bookmanager"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/barcelona"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
 
-    <!-- Hibernate session factory -->
-    <bean id="hibernate4AnnotatedSessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <!-- EntityManager factory -->
+    <bean id="jpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="annotatedClasses">
-            <list>
-                <value>bookmanager.model.Book</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
+        <property name="packagesToScan" value="barcelona" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
     </bean>
 
-    <!--bookDao and bookService baens-->
-    <bean id="bookDao" class="bookmanager.dao.BookDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <bean id="bookService" class="bookmanager.service.BookServiceImpl">
-        <property name="bookDao" ref="bookDao"/>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!--playerDao bean-->
+    <bean id="playerDao" class="barcelona.dao.implementation.PlayerDaoImpl">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-
-    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    <bean id="playerService" class="barcelona.service.implementation.PlayerServiceImpl">
+        <property name="playerDao" ref="playerDao"/>
     </bean>
-
-    <tx:annotation-driven transaction-manager="txManager"/>
 
 </beans>
