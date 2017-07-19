@@ -7,6 +7,9 @@
 
     <context:component-scan base-package="barcelona" />
 
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
 
     <!--DataBase-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -43,6 +46,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+    <!--playerService bean-->
     <bean id="playerService" class="barcelona.service.implementation.PlayerServiceImpl">
         <property name="playerDao" ref="playerDao"/>
     </bean>
