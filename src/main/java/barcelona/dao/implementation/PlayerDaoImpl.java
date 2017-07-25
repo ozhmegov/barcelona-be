@@ -18,6 +18,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public void addPlayer(Player player) {
+        System.out.println("add player in dao!");
         this.entityManager.persist(player);
     }
 
@@ -42,9 +43,12 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public List<Player> listPlayers() {
+        System.out.println("get list players from dao");
         Query query = this.entityManager
-                .createQuery(String.format("SELECT p FROM %s p", Player.class.getSimpleName()));
-        return query.getResultList();
+                .createQuery(String.format("SELECT p FROM %s p", "team"));
+        List<Player> players = query.getResultList();
+        System.out.println(players.size());
+        return players;
     }
 
     public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {

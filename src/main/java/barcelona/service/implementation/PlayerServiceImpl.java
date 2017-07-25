@@ -17,6 +17,7 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     @Transactional
     public void addPlayer(Player player) {
+        System.out.println("add player in service!");
         this.playerDao.addPlayer(player);
     }
 
@@ -41,6 +42,7 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     @Transactional
     public List<Player> listPlayers() {
+        System.out.println("get list players from service");
         return this.playerDao.listPlayers();
     }
 

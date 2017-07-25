@@ -12,7 +12,7 @@ public class Player {
     @Column(name = "name")
     private String name;
     @Column(name = "last_name")
-    private String LastName;
+    private String lastName;
     @Column(name = "number")
     private int number;
     @Column(name = "role")
@@ -23,7 +23,7 @@ public class Player {
 
     public Player(String name, String lastName, int number, String role) {
         this.name = name;
-        LastName = lastName;
+        this.lastName = lastName;
         this.number = number;
         this.role = role;
     }
@@ -70,7 +70,7 @@ public class Player {
      * @return lastName
      */
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Player {
      * @param lastName the new value.
      */
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     /**
