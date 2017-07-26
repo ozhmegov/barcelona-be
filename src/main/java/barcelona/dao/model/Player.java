@@ -3,7 +3,7 @@ package barcelona.dao.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "team")
+@Table(name = "Player")
 public class Player {
     @Id
     @Column(name = "id")

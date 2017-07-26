@@ -45,10 +45,9 @@ public class PlayerDaoImpl implements PlayerDao {
     public List<Player> listPlayers() {
         System.out.println("get list players from dao");
         Query query = this.entityManager
-                .createQuery(String.format("SELECT p FROM %s p", "team"));
-        List<Player> players = query.getResultList();
-        System.out.println(players.size());
-        return players;
+                .createQuery(String
+                        .format("SELECT p FROM %s p", Player.class.getSimpleName()));
+        return query.getResultList();
     }
 
     public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
