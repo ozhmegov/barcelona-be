@@ -18,7 +18,6 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public void addPlayer(Player player) {
-        System.out.println("add player in dao!");
         this.entityManager.persist(player);
     }
 
@@ -43,7 +42,6 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public List<Player> listPlayers() {
-        System.out.println("get list players from dao");
         Query query = this.entityManager
                 .createQuery(String
                         .format("SELECT p FROM %s p", Player.class.getSimpleName()));

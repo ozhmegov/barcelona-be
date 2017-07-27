@@ -24,8 +24,31 @@ public class PlayerController {
 
     @CrossOrigin
     @RequestMapping(value = "/getPlayers",method = RequestMethod.GET)
-    public ResponseEntity<List<Player>> getPlayer(){
+    public ResponseEntity<List<Player>> getPlayers(){
         System.out.println("get list players from controller");
         return new ResponseEntity<List<Player>>(playerService.listPlayers(), HttpStatus.OK);
+    }
+
+//    @CrossOrigin
+//    @RequestMapping(value = "/getPlayer/{id}",method = RequestMethod.GET)
+//    public ResponseEntity<Player> getPlayer(@PathVariable("id") int id){
+//        System.out.println("get player from controller");
+//        return new ResponseEntity<Player>(playerService.getPlayerById(id), HttpStatus.OK);
+//    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/removePlayer/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<Integer> removePlayer(@PathVariable("id") int id){
+        System.out.println("remove player from controller");
+        playerService.removePlayer(id);
+        return new ResponseEntity<Integer>(id, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/updatePlayer",method = RequestMethod.PUT)
+    public ResponseEntity<Player> updatePlayer(@RequestBody Player player){
+        System.out.println("update player in controller");
+        playerService.updatePlayer(player);
+        return new ResponseEntity<Player>(player, HttpStatus.OK);
     }
 }
